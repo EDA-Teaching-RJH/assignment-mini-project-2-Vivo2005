@@ -1,11 +1,11 @@
 import math
 
 def main_menu():
-    print ("Please select from the following options:" \
-    "1. Log new pet" \
-    "2. Remove pet data" \
-    "3. See health suggestions " \
-    "4. change personal info" \
+    print ("Please select from the following options:\n"
+    "1. Log new pet \n"
+    "2. Remove pet data\n"
+    "3. See health suggestions \n"
+    "4. change personal info\n"
     "5. change pet info")
 
 
@@ -20,7 +20,25 @@ def main():
         x=x+1
 
     main_menu()
-    
+    n=input("Option:")
+
+    if n==1:
+        print("hi")
+
+    elif n==2:
+        print("hi")
+
+    elif n==3:
+        print("hi")
+
+    elif n==4:
+        print("hi")
+
+    elif n==5:
+        print("hi")
+
+    else:
+        ValueError ("Not a Valid selection")
 
 
 #testing
