@@ -1,4 +1,11 @@
 
+def main_menu():
+    print ("Please select from the following options:" \
+    "1. Log new pet" \
+    "2. Remove pet data" \
+    "3. See health suggestions " \
+    "4. change personal info" \
+    "5. change pet info")
 
 
 
@@ -10,6 +17,8 @@ def main():
     while x<4:
         print("...")
         x=x+1
+
+    main_menu()
     
 
 
