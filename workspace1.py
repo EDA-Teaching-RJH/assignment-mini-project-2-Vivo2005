@@ -1,3 +1,4 @@
+import math
 
 def main_menu():
     print ("Please select from the following options:" \
