@@ -20,7 +20,7 @@ def main():
         x=x+1
 
     main_menu()
-    n=input("Option:")
+    n=int(input("Option:"))
 
     if n==1:
         print("hi")
@@ -38,7 +38,9 @@ def main():
         print("hi")
 
     else:
-        ValueError ("Not a Valid selection")
+        print("Option not recognised")
+
+
 
 
 #testing
