@@ -1,6 +1,9 @@
 import math
 import sys
 import cowsay #do properly when i can remember how
+import re 
+
+post_code_re=(r"\b[A-Za-z0-9]{3,4}\s[A-Za-z0-9]{3}\b")
 
 def main_menu():
     print ("Please select from the following options:\n"
@@ -39,7 +42,10 @@ class dog(pet):
         return super().__str__()
 
 def log_new():
-    
+    name= input("Pet Name:")
+    owner= input("Owner:")
+    postcode= input("Postcode:")
+    age=input("Pet age:")
 
 
 def main():
