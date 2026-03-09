@@ -2,6 +2,7 @@ import math
 import sys
 import cowsay #do properly when i can remember how
 import re 
+import csv
 
 post_code_re=(r"\b[A-Za-z0-9]{3,4}\s[A-Za-z0-9]{3}\b")
 
@@ -15,7 +16,7 @@ def main_menu():
 
 #building pet class with all basic info, species specific will branch off   
 
-class pet :
+class Pet :
     def __init__(self, name, owner, postcode ,age):
         self.name=name
         self.owner=owner
@@ -25,7 +26,7 @@ class pet :
         return f"{self.name}is owned by{self.owner},{self.postcode}"
 
 #sub class cat
-class cat(pet):
+class cat(Pet):
     def __init__(self, name, owner, postcode ,age , breed):
         super().__init__(name, owner, postcode, age)
         self.breed=breed
@@ -34,7 +35,7 @@ class cat(pet):
     
 
 #sub class dog 
-class dog(pet):
+class dog(Pet):
     def __init__(self, name, owner, postcode ,age ,breed):
         super().__init__(name, owner, postcode ,age)
         self.breed=breed
@@ -46,6 +47,9 @@ def log_new():
     owner= input("Owner:")
     postcode= input("Postcode:")
     age=input("Pet age:")
+    pet=Pet(name,owner,postcode,age)
+
+
 
 
 def main():
