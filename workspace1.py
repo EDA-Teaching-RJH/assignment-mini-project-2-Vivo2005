@@ -39,7 +39,7 @@ class dog(pet):
         return super().__str__()
 
 def log_new():
-    
+
 
 def main():
     print("Welcome to the National Veterinary Registry")
@@ -53,7 +53,7 @@ def main():
 
 #tying to include sys.argv into the selection stage of my code .. failing
     main_menu()
-    n= sys.argv
+    n= int(input("pick an option:"))
 
     if n==1:
         print("hi")
