@@ -48,6 +48,9 @@ def log_new():
     postcode= input("Postcode:")
     age=input("Pet age:")
     pet=Pet(name,owner,postcode,age)
+    with open ("Pet_Log.csv") as file:   #open file!! not correct but at least there
+        name, owner, pet
+
 
 
 
