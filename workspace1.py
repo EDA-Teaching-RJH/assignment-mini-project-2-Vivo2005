@@ -39,6 +39,7 @@ class dog(pet):
         return super().__str__()
 
 def log_new():
+    
 
 
 def main():
