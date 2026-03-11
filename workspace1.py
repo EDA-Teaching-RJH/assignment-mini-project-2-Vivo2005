@@ -1,8 +1,10 @@
 import math
 import sys
-#cowsay also imported
 import re 
 import csv
+import cowsay
+from faker import Faker
+
 
 postcode_re=(r"\b[A-Za-z0-9]{3,4}\s[A-Za-z0-9]{3}\b")
 
@@ -37,7 +39,7 @@ class Pet :
         vet.add_pet(self) #adds pet to vet data
 
     def __str__(self):
-        return f"{self.name} lives at {self.postcode}"
+        return f"{self.name} lives at {self.postcode} and is {self.age} years old"
 
 #sub class cat
 class cat(Pet):
@@ -45,8 +47,11 @@ class cat(Pet):
         super().__init__(name, postcode, age)
         self.breed=breed
         self.owner=owner
+
+    
     def __str__(self):
-        return super().__str__()
+        # returns the superior information plus cat specific data
+        return f"{super().__str__()} - {self.name} is a cat -{self.breed}- owned by {self.owner}"
     
 
 #sub class dog 
