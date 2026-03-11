@@ -30,6 +30,11 @@ class Pet :
             raise ValueError("Postcode not valid")
         if age not in [0-30] :
             raise ValueError ("invalid age")
+        
+    def assign(self, vet):
+        #assigns pet to a vet
+        self.vet.append(vet) #adds vet to pet data
+        vet.add_pet(self) #adds pet to vet data
 
     def __str__(self):
         return f"{self.name} lives at {self.postcode}"
@@ -61,6 +66,22 @@ def log_new():
     pet=Pet(name,owner,postcode,age)
     with open ("Pet_Log.csv") as file:   #open file!! not correct but at least there
         name, owner, pet
+
+class vet:
+    #who each pet i sthen assigned to a vet
+    def __init__  (self, vet_name, name, owner):
+        self.vet_name=vet_name
+        self.name=name
+        self.owner=owner
+        self.assigned_pets=[]  #no assigned pets yet
+
+    def add_pet(self,name):
+        if name not in self.assigned_pets :
+            self.assigned_pets.append(name)
+
+    def __str__ (self):
+        return f"{self.name}belongs to {self.owner} and is under the care of {self.vet_name}"
+    
 
 
 
