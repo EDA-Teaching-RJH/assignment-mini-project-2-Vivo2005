@@ -1,6 +1,6 @@
 import math
 import sys
-import cowsay #do properly when i can remember how
+#cowsay also imported
 import re 
 import csv
 
