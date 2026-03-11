@@ -56,20 +56,17 @@ def log_new():
 
 
 def main():
-    print("Welcome to the National Veterinary Registry")
+    if len(sys.argv) < 1:
+        print("No selection made")
+        sys.exit()
 
-    x=1
-    print ("..Opening profile...")
-    while x<4:
-        print("...")
-        x=x+1
+#trying to include sys.argv into the selection stage of my code .. failing
+   
+    n= sys.argv[1]
+    if not n:
+        print ("No argument provided, please select an option:")
 
-
-#tying to include sys.argv into the selection stage of my code .. failing
-    main_menu()
-    n= int(input("pick an option:"))
-
-    if n==1:
+    if n=="1":
         print("hi")
 
     elif n==2:
