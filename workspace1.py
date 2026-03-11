@@ -4,7 +4,7 @@ import sys
 import re 
 import csv
 
-post_code_re=(r"\b[A-Za-z0-9]{3,4}\s[A-Za-z0-9]{3}\b")
+postcode_re=(r"\b[A-Za-z0-9]{3,4}\s[A-Za-z0-9]{3}\b")
 
 def main_menu():
     print ("Please select from the following options:\n"
@@ -17,19 +17,29 @@ def main_menu():
 #building pet class with all basic info, species specific will branch off   
 
 class Pet :
-    def __init__(self, name, owner, postcode ,age):
+    def __init__(self, name,postcode ,age):
         self.name=name
-        self.owner=owner
         self.postcode=postcode
         self.age=age
+        self.vet=[] #Vet left empty to be assigned later
+    
+    #check inputs are accurate beore inputting them
+        if not name:
+            raise ValueError("Missing name")
+        if not re.search(postcode_re,postcode):
+            raise ValueError("Postcode not valid")
+        if age not in [0-30] :
+            raise ValueError ("invalid age")
+
     def __str__(self):
-        return f"{self.name}is owned by{self.owner},{self.postcode}"
+        return f"{self.name} lives at {self.postcode}"
 
 #sub class cat
 class cat(Pet):
     def __init__(self, name, owner, postcode ,age , breed):
-        super().__init__(name, owner, postcode, age)
+        super().__init__(name, postcode, age)
         self.breed=breed
+        self.owner=owner
     def __str__(self):
         return super().__str__()
     
@@ -37,8 +47,9 @@ class cat(Pet):
 #sub class dog 
 class dog(Pet):
     def __init__(self, name, owner, postcode ,age ,breed):
-        super().__init__(name, owner, postcode ,age)
+        super().__init__(name, postcode ,age)
         self.breed=breed
+        self.owner=owner
     def __str__(self):
         return super().__str__()
 
@@ -56,11 +67,12 @@ def log_new():
 
 
 def main():
-    if len(sys.argv) < 1:
-        print("No selection made")
-        sys.exit()
 
-#trying to include sys.argv into the selection stage of my code .. failing
+    #Initiates the main menu and prompts user to select a function
+    main_menu()
+    if len(sys.argv) < 2:
+        print("Please make a selection")
+        sys.exit()
    
     n= sys.argv[1]
     if not n:
@@ -69,16 +81,16 @@ def main():
     if n=="1":
         print("hi")
 
-    elif n==2:
+    elif n=="2":
         print("hi")
 
-    elif n==3:
+    elif n=="3":
         print("hi")
 
-    elif n==4:
+    elif n=="4":
         print("hi")
 
-    elif n==5:
+    elif n=="5":
         print("hi")
 
     else:
@@ -97,7 +109,7 @@ def main():
 
 
 #input output
-
+#lambda can be used to calculate pet food weight
 
 #object oriented programming
 
