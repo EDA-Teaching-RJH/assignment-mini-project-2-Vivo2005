@@ -1,4 +1,5 @@
 import math
+import os
 import sys
 import re 
 import csv
@@ -69,8 +70,7 @@ def log_new():
     postcode= input("Postcode:")
     age=input("Pet age:")
     pet=Pet(name,owner,postcode,age)
-    with open ("Pet_Log.csv") as file:   #open file!! not correct but at least there
-        name, owner, pet
+
 
 class vet:
     #who each pet i sthen assigned to a vet
@@ -88,7 +88,18 @@ class vet:
         return f"{self.name}belongs to {self.owner} and is under the care of {self.vet_name}"
     
 
-
+#fake code generation
+def fake_data():
+    fake=Faker()
+    if not os.path.exists("pet_log.csv"):
+        with open ("" \
+        "pet_log.csv", "w", newline="") as csvfile:
+            writer=csv.Writer(file)
+            writer.writerow(["name", "owner", "postcode", "age"])
+            for _ in range(25):
+                writer.writerow({fake.first_name(), fake.name(), fake.postcode() fake.random_int(min=0, max=30)})
+        print("Fake data generated and saved to pet_log.csv")
+        
 
 
 
