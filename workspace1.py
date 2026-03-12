@@ -12,7 +12,7 @@ postcode_re=(r"\b[A-Za-z0-9]{3,4}\s[A-Za-z0-9]{3}\b")
 def main_menu():
     print ("Please select from the following options:\n"
     "1. Log new pet \n"
-    "2. Remove pet data\n"
+    "2. View all pet data\n"
     "3. See health suggestions \n"
     "4. change personal info\n"
     "5. change pet info")
@@ -97,7 +97,7 @@ def fake_data():
             writer=csv.Writer(file)
             writer.writerow(["name", "owner", "postcode", "age"])
             for _ in range(25):
-                writer.writerow({fake.first_name(), fake.name(), fake.postcode() fake.random_int(min=0, max=30)})
+                writer.writerow({fake.first_name(), fake.name(), fake.postcode(), fake.random_int(min=0, max=30)})
         print("Fake data generated and saved to pet_log.csv")
         
 
