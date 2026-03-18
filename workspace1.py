@@ -9,6 +9,8 @@ from faker import Faker
 
 postcode_re=(r"\b[A-Za-z0-9]{3,4}\s[A-Za-z0-9]{3}\b")
 
+square=lambda x: x*x
+
 def main_menu():
     print ("Please select from the following options:\n"
     "1. Log new pet \n"
@@ -136,9 +138,11 @@ def main():
         postcode= input("Postcode:")
         New_pet=Pet(name,owner,postcode)
         save_pets(New_pet)
+        cowsay.yoda(f"{name} logged successfully!")
 
     elif n=="2":
-        print("hi")
+        print("\nAll pet data:")
+        pets=load_pets()
 
     elif n=="3":
         print("hi")
