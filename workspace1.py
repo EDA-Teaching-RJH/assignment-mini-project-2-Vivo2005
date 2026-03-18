@@ -92,8 +92,7 @@ class vet:
 def fake_data():
     fake=Faker()
     if not os.path.exists("pet_log.csv"):
-        with open ("" \
-        "pet_log.csv", "w", newline="") as csvfile:
+        with open ("pet_log.csv", "w", newline="") as file:
             writer=csv.Writer(file)
             writer.writerow(["name", "owner", "postcode", "age"])
             for _ in range(25):
@@ -101,7 +100,15 @@ def fake_data():
         print("Fake data generated and saved to pet_log.csv")
         
 
-
+def load_pets():
+    pets=[]
+    if os.path.exists("pet_log.csv"):
+        with open("pet_log.csv", "r") as file:
+            reader=csv.Reader(file)
+            for row in reader:
+                pet=Pet(row["name"], row["owner"], row["postcode"], row["age"])
+                pets.append(pet)
+    return pets
 
 def main():
 
