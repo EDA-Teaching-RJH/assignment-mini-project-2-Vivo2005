@@ -131,7 +131,11 @@ def main():
     n= sys.argv[1]
 
     if n=="1":
-        print("hi")
+        name= input("Pet Name:")
+        owner= input("Owner:")
+        postcode= input("Postcode:")
+        New_pet=Pet(name,owner,postcode)
+        save_pets(New_pet)
 
     elif n=="2":
         print("hi")
