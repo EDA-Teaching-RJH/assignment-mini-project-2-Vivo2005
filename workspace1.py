@@ -1,4 +1,4 @@
-import math
+
 import os
 import sys
 import re 
@@ -129,8 +129,6 @@ def main():
         sys.exit()
    
     n= sys.argv[1]
-    if not n:
-        print ("No argument provided, please select an option:")
 
     if n=="1":
         print("hi")
@@ -149,6 +147,7 @@ def main():
 
     else:
         print("Option not recognised")
+        sys.exit()
 
 
 
