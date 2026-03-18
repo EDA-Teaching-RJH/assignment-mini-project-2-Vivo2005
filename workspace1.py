@@ -99,6 +99,16 @@ def fake_data():
                 writer.writerow({fake.first_name(), fake.name(), fake.postcode(), fake.random_int(min=0, max=30)})
         print("Fake data generated and saved to pet_log.csv")
         
+def save_pets(Pet):
+    with open("pet_log.csv", "a", newline="") as file:
+        writer=csv.writer(file)
+        writer.writerow(["name", "owner", "postcode", "age"])
+        if isinstance(Pet, cat):
+            writer.writerow(["Cat", Pet.name, Pet.owner, Pet.postcode, Pet.age, Pet.breed])
+        elif isinstance(Pet, dog):
+            writer.writerow(["Dog", Pet.name, Pet.owner, Pet.postcode, Pet.age, Pet.breed])
+        else:
+            writer.writerow(["Pet", Pet.name, Pet.postcode, Pet.age])
 
 def load_pets():
     pets=[]
