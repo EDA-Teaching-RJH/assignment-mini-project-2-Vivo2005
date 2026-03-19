@@ -81,13 +81,14 @@ class vet:
         self.name=name
         self.owner=owner
         self.assigned_pets=[]  #no assigned pets yet
-
-    def add_pet(self,name):
-        if name not in self.assigned_pets :
-            self.assigned_pets.append(name)
-
     def __str__ (self):
         return f"{self.name}belongs to {self.owner} and is under the care of {self.vet_name}"
+    
+def add_pet(self,name):
+    if name not in self.assigned_pets :
+        self.assigned_pets.append(name)
+
+   
     
 
 #fake code generation
@@ -138,6 +139,7 @@ def main():
         postcode= input("Postcode:")
         New_pet=Pet(name,owner,postcode)
         save_pets(New_pet)
+        add_pet(New_pet)
         cowsay.yoda(f"{name} logged successfully!")
 
     elif n=="2":
