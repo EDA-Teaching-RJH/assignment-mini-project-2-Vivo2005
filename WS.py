@@ -7,7 +7,7 @@ import cowsay
 from faker import Faker
 
 
-postcode_re=(r"\b[A-Za-z0-9]{3,4}\s[A-Za-z0-9]{3}\b") #regular expression to be used later
+p_re= r"^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$" #regular expression to be used later
 
 square=lambda x: x*x #lamba expression to be used later
 
@@ -33,7 +33,7 @@ class Pet :
     #check inputs are accurate beore inputting them
         if not name:
             raise ValueError("Missing name")
-        if not re.search(postcode_re,postcode):
+        if not re.search(p_re,postcode):
             raise ValueError("Postcode not valid")
         if age not in [0-30] :
             raise ValueError ("invalid age")
