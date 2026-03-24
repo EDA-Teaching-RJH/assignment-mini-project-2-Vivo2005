@@ -43,6 +43,15 @@ class Pet :
         self.vet.append(vet) #adds vet to pet data
         vet.add_pet(self) #adds pet to vet data
 
+    def health_suggestions(self):
+        #suggests health advice based on pet age
+        if self.age < 1:
+            return f"Feeding suggestion for {self.name} is {square(self.age)} grams of puppy food per day - needs vaccinations and regular vet checkups"
+        elif self.age < 7:
+            return f"Feeding suggestion for {self.name} is {square(self.age)} grams of adult food per day - regular exercise and balanced diet recommended"
+        else:
+            return f"Feeding suggestion for {self.name} is {square(self.age)} grams of senior food per day - regular vet checkups and joint supplements may be beneficial"
+
 
 
 
@@ -151,7 +160,9 @@ def main():
         pets=load_pets()
 
     elif n=="3":
-        print("hi")
+        print("\nHealth suggestions:")
+        for pet in pets:
+            print(f"- {pet.health_suggestions()}")
 
     elif n=="4":
         print("hi")
