@@ -7,10 +7,11 @@ import cowsay
 from faker import Faker
 
 
-postcode_re=(r"\b[A-Za-z0-9]{3,4}\s[A-Za-z0-9]{3}\b")
+postcode_re=(r"\b[A-Za-z0-9]{3,4}\s[A-Za-z0-9]{3}\b") #regular expression to be used later
 
-square=lambda x: x*x
+square=lambda x: x*x #lamba expression to be used later
 
+#main menu to print when programme begins
 def main_menu():
     print ("Please select from the following options:\n"
     "1. Log new pet \n"
@@ -23,6 +24,7 @@ def main_menu():
 
 class Pet :
     def __init__(self, name,postcode ,age):
+       
         self.name=name
         self.postcode=postcode
         self.age=age
@@ -40,6 +42,9 @@ class Pet :
         #assigns pet to a vet
         self.vet.append(vet) #adds vet to pet data
         vet.add_pet(self) #adds pet to vet data
+
+
+
 
     def __str__(self):
         return f"{self.name} lives at {self.postcode} and is {self.age} years old"
