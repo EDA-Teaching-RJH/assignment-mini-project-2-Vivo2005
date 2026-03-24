@@ -21,7 +21,7 @@ def main_menu():
 #building pet class with all basic info, species specific will branch off   
 
 class Pet :
-    def __init__(self, name,postcode ,age):
+    def __init__(self, name, zipcode ,age):
        
         self.name=name
         self.zipcode=zipcode
@@ -31,7 +31,7 @@ class Pet :
     #check inputs are accurate beore inputting them
         if not name:
             raise ValueError("Missing name")
-        if age not in [0-30] :
+        if age not in range(32):
             raise ValueError ("invalid age")
         if not re.search(r"^\d{5}$", zipcode):
             raise ValueError("Invalid zipcode format")
@@ -107,7 +107,7 @@ def fake_data():
             writer=csv.writer(file)
             writer.writerow(["name", "owner", "zipcode", "age"])
             for _ in range(25):
-                writer.writerow([fake.first_name(), fake.name(), fake.zipcode(), fake.random_int(min=0, max=30)])
+                writer.writerow([fake.first_name(), fake.first_name(), fake.zipcode(), fake.random_int(min=0, max=30)])
         print("Fake data generated and saved to pet_log.csv")
         
 def save_pets(Pet):
@@ -128,7 +128,7 @@ def load_pets():
             reader=csv.reader(file)
             next(reader) #skip names
             for row in reader:
-                pets.append(Pet(row[0], row[1], row[2])) #creates pet objects from csv data and adds to list
+                pets.append(Pet(row[0], row[2], int(row[3]))) #creates pet objects from csv data and adds to list
     return pets
 
 def main():
@@ -172,22 +172,6 @@ def main():
         print("Option not recognised")
         sys.exit()
 
-
-
-
-#testing
-
-
-# regex
-
-
-#libraries
-
-
-#input output
-#lambda can be used to calculate pet food weight
-
-#object oriented programming
 
 if __name__=="__main__":
     main()
