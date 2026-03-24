@@ -9,7 +9,7 @@ from faker import Faker
 
 square=lambda x: x*x #lamba expression to be used later
 
-#main menu to print when programme begins
+#-----------------------------------------------------------main menu to print when programme begins
 def main_menu():
     print ("Please select from the following options:\n"
     "1. Log new pet \n"
@@ -18,8 +18,8 @@ def main_menu():
     "4. change personal info\n"
     "5. change pet info")
 
-#building pet class with all basic info, species specific will branch off   
 
+#-----------------------------------------------------------class definitions
 class Pet :
     def __init__(self, name, zipcode ,age):
        
@@ -31,7 +31,7 @@ class Pet :
     #check inputs are accurate beore inputting them
         if not name:
             raise ValueError("Missing name")
-        if age not in range(32):
+        if age not in range(0, 31):
             raise ValueError ("invalid age")
         if not re.search(r"^\d{5}$", zipcode):
             raise ValueError("Invalid zipcode format")
@@ -77,10 +77,10 @@ class dog(Pet):
 
 def log_new():
     name= input("Pet Name:")
-    owner= input("Owner:")
     zipcode= input("Zipcode:")
     age=input("Pet age:")
-    pet=Pet(name,owner,zipcode,age)
+    pet=Pet(name,zipcode,age)
+    return pet
 
 
 class vet:
@@ -99,7 +99,7 @@ def add_pet(self,name):
 
    
 
-#fake code generation
+#-----------------------------------------------------------fake code generation
 def fake_data():
     fake=Faker()
     if not os.path.exists("pet_log.csv"):
@@ -131,6 +131,12 @@ def load_pets(): #working well
                 pets.append(Pet(row[0], row[2], int(row[3]))) #creates pet objects from csv data and adds to list
     return pets
 
+
+
+
+
+
+#---------------------------------------------------------------------------------main function to run the programme 
 def main():
 
     #Initiates the main menu and prompts user to select a function
@@ -142,13 +148,10 @@ def main():
     n= sys.argv[1]
 
     if n=="1":
-        name= input("Pet Name:")
-        zipcode= input("Zipcode:")
-        age=input("Pet age:")
-        New_pet=Pet(name,zipcode,age)
-        save_pets(New_pet)
-        add_pet(New_pet)
-        cowsay.yoda(f"{name} logged successfully!")
+        pet = log_new()
+        save_pets(pet)
+        add_pet(pet)
+        cowsay.yoda(f"{pet.name} logged successfully!")
 
     elif n=="2":
         fake_data() #generates fake data to print
