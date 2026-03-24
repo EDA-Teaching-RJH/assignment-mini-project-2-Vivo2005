@@ -89,7 +89,6 @@ def add_pet(self,name):
         self.assigned_pets.append(name)
 
    
-    
 
 #fake code generation
 def fake_data():
