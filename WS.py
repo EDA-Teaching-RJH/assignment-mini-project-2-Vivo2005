@@ -78,20 +78,7 @@ class dog(Pet):
 
 
 
-class vet:
-    #who each pet i sthen assigned to a vet
-    def __init__  (self, vet_name, name, owner):
-        self.vet_name=vet_name
-        self.name=name
-        self.owner=owner
-        self.assigned_pets=[]  #no assigned pets yet
-        
-    def assign(self, name):
-        if name not in self.assigned_pets:
-            self.assigned_pets.append(name)
 
-    def __str__(self):
-        return f"{self.name}belongs to {self.owner} and is under the care of {self.vet_name}"
     
     
    
@@ -169,10 +156,8 @@ def main():
 
     if n=="1":
         pet = log_new()
-        assign_vet= vet("Dr Vogel", pet.name, pet.owner) #creates vet object to assign pet to
-        vet.assign(assign_vet) #assigns pet to vet
         save_pets(pet)
-        cowsay.yoda(f"{pet.name} logged successfully!")
+        cowsay.tux(f"{pet.name} logged successfully!")
 
     elif n=="2":
         fake_data() #generates fake data to print
