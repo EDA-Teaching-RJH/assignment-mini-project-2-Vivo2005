@@ -7,8 +7,6 @@ import cowsay
 from faker import Faker
 
 
-p_re= r"^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$" #regular expression to be used later
-
 square=lambda x: x*x #lamba expression to be used later
 
 #main menu to print when programme begins
@@ -26,17 +24,17 @@ class Pet :
     def __init__(self, name,postcode ,age):
        
         self.name=name
-        self.postcode=postcode
+        self.zipcode=zipcode
         self.age=age
         self.vet=[] #Vet left empty to be assigned later
     
     #check inputs are accurate beore inputting them
         if not name:
             raise ValueError("Missing name")
-        if not re.search(p_re,postcode):
-            raise ValueError("Postcode not valid")
         if age not in [0-30] :
             raise ValueError ("invalid age")
+        if not re.search(r"^\d{5}$", zipcode):
+            raise ValueError("Invalid zipcode format")
         
     def assign(self, vet):
         #assigns pet to a vet
@@ -53,12 +51,12 @@ class Pet :
             return f"Feeding suggestion for {self.name} is {square(self.age)} grams of senior food per day - regular vet checkups and joint supplements may be beneficial"
 
     def __str__(self):
-        return f"{self.name} lives at {self.postcode} and is {self.age} years old"
+        return f"{self.name} lives at {self.zipcode} and is {self.age} years old"
 
 #sub class cat
 class cat(Pet):
-    def __init__(self, name, owner, postcode ,age , breed):
-        super().__init__(name, postcode, age)
+    def __init__(self, name, owner, zipcode ,age , breed):
+        super().__init__(name, zipcode, age)
         self.breed=breed
         self.owner=owner
 
@@ -70,8 +68,8 @@ class cat(Pet):
 
 #sub class dog 
 class dog(Pet):
-    def __init__(self, name, owner, postcode ,age ,breed):
-        super().__init__(name, postcode ,age)
+    def __init__(self, name, owner, zipcode ,age ,breed):
+        super().__init__(name, zipcode ,age)
         self.breed=breed
         self.owner=owner
     def __str__(self):
@@ -80,9 +78,9 @@ class dog(Pet):
 def log_new():
     name= input("Pet Name:")
     owner= input("Owner:")
-    postcode= input("Postcode:")
+    zipcode= input("Zipcode:")
     age=input("Pet age:")
-    pet=Pet(name,owner,postcode,age)
+    pet=Pet(name,owner,zipcode,age)
 
 
 class vet:
@@ -107,30 +105,30 @@ def fake_data():
     if not os.path.exists("pet_log.csv"):
         with open ("pet_log.csv", "w", newline="") as file:
             writer=csv.writer(file)
-            writer.writerow(["name", "owner", "postcode", "age"])
+            writer.writerow(["name", "owner", "zipcode", "age"])
             for _ in range(25):
-                writer.writerow([fake.first_name(), fake.name(), fake.postcode(), fake.random_int(min=0, max=30)])
+                writer.writerow([fake.first_name(), fake.name(), fake.zipcode(), fake.random_int(min=0, max=30)])
         print("Fake data generated and saved to pet_log.csv")
         
 def save_pets(Pet):
     with open("pet_log.csv", "a", newline="") as file:
         writer=csv.writer(file)
-        writer.writerow(["name", "owner", "postcode", "age"])
+        writer.writerow(["name", "owner", "zipcode", "age"])
         if isinstance(Pet, cat):
-            writer.writerow(["Cat", Pet.name, Pet.owner, Pet.postcode, Pet.age, Pet.breed])
+            writer.writerow(["Cat", Pet.name, Pet.owner, Pet.zipcode, Pet.age, Pet.breed])
         elif isinstance(Pet, dog):
-            writer.writerow(["Dog", Pet.name, Pet.owner, Pet.postcode, Pet.age, Pet.breed])
+            writer.writerow(["Dog", Pet.name, Pet.owner, Pet.zipcode, Pet.age, Pet.breed])
         else:
-            writer.writerow(["Pet", Pet.name, Pet.postcode, Pet.age])
+            writer.writerow(["Pet", Pet.name, Pet.owner, Pet.zipcode, Pet.age])
 
 def load_pets():
     pets=[]
     if os.path.exists("pet_log.csv"):
         with open("pet_log.csv", "r") as file:
             reader=csv.reader(file)
+            next(reader) #skip names
             for row in reader:
-                pet=Pet(row["name"], row["owner"], row["postcode"], row["age"])
-                pets.append(pet)
+                pets.append(Pet(row[0], row[1], row[2])) #creates pet objects from csv data and adds to list
     return pets
 
 def main():
@@ -146,8 +144,8 @@ def main():
     if n=="1":
         name= input("Pet Name:")
         owner= input("Owner:")
-        postcode= input("Postcode:")
-        New_pet=Pet(name,owner,postcode)
+        zipcode= input("Zipcode:")
+        New_pet=Pet(name,owner,zipcode)
         save_pets(New_pet)
         add_pet(New_pet)
         cowsay.yoda(f"{name} logged successfully!")
