@@ -48,8 +48,8 @@ class Pet :
         elif self.age < 8:
             return f"Feeding suggestion for {self.name} is {square(self.age)} grams of adult food per day - regular exercise and balanced diet recommended"
         else:
-            return f"Feeding suggestion for {self.name} is {square(self.age)} grams of senior food per day - regular vet checkups and joint supplements may be beneficial"
-
+            return f"Feeding suggestion for {self.name} is {square(self.age)} grams of senior food per day - regular vet checkups and joint supplements may be beneficial" 
+    
     def __str__(self):
         return f"{self.name} lives at {self.zipcode} and is {self.age} years old"
 
@@ -77,15 +77,10 @@ class dog(Pet):
 
 
 
-
-
-    
-    
-   
-
 #-----------------------------------------------------------fake code generation
 def fake_data():
-    fake=Faker()
+
+  fake=Faker()
     if not os.path.exists("pet_log.csv"):
         with open ("pet_log.csv", "w", newline="") as file:
             writer=csv.writer(file)
@@ -154,7 +149,7 @@ def main():
    
     n= sys.argv[1]
 
-    if n=="1":
+    if n=="1": #working successfully
         pet = log_new()
         save_pets(pet)
         cowsay.tux(f"{pet.name} logged successfully!")
@@ -184,4 +179,5 @@ def main():
 
 
 if __name__=="__main__":
-    main()
+    main()   
+  
