@@ -106,10 +106,10 @@ def fake_data():
     fake=Faker()
     if not os.path.exists("pet_log.csv"):
         with open ("pet_log.csv", "w", newline="") as file:
-            writer=csv.Writer(file)
+            writer=csv.writer(file)
             writer.writerow(["name", "owner", "postcode", "age"])
             for _ in range(25):
-                writer.writerow({fake.first_name(), fake.name(), fake.postcode(), fake.random_int(min=0, max=30)})
+                writer.writerow([fake.first_name(), fake.name(), fake.postcode(), fake.random_int(min=0, max=30)])
         print("Fake data generated and saved to pet_log.csv")
         
 def save_pets(Pet):
@@ -127,7 +127,7 @@ def load_pets():
     pets=[]
     if os.path.exists("pet_log.csv"):
         with open("pet_log.csv", "r") as file:
-            reader=csv.Reader(file)
+            reader=csv.reader(file)
             for row in reader:
                 pet=Pet(row["name"], row["owner"], row["postcode"], row["age"])
                 pets.append(pet)
@@ -153,6 +153,7 @@ def main():
         cowsay.yoda(f"{name} logged successfully!")
 
     elif n=="2":
+        fake_data() #generates fake data to print
         print("\nAll pet data:")
         pets=load_pets()
         for p in sorted(pets, key=lambda p: p.name):
