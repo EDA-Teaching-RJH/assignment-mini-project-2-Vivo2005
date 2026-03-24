@@ -45,15 +45,12 @@ class Pet :
 
     def health_suggestions(self):
         #suggests health advice based on pet age
-        if self.age < 1:
+        if self.age < 2:
             return f"Feeding suggestion for {self.name} is {square(self.age)} grams of puppy food per day - needs vaccinations and regular vet checkups"
-        elif self.age < 7:
+        elif self.age < 8:
             return f"Feeding suggestion for {self.name} is {square(self.age)} grams of adult food per day - regular exercise and balanced diet recommended"
         else:
             return f"Feeding suggestion for {self.name} is {square(self.age)} grams of senior food per day - regular vet checkups and joint supplements may be beneficial"
-
-
-
 
     def __str__(self):
         return f"{self.name} lives at {self.postcode} and is {self.age} years old"
@@ -158,6 +155,8 @@ def main():
     elif n=="2":
         print("\nAll pet data:")
         pets=load_pets()
+        for p in sorted(pets, key=lambda p: p.name):
+            print(p)
 
     elif n=="3":
         print("\nHealth suggestions:")
