@@ -31,7 +31,7 @@ class Pet :
     #check inputs are accurate beore inputting them
         if not name:
             raise ValueError("Missing name")
-        if age not in range(0, 31):
+        if not age in range(0, 31):
             raise ValueError ("invalid age")
         if not re.search(r"^\d{5}$", zipcode):
             raise ValueError("Invalid zipcode format")
@@ -44,7 +44,7 @@ class Pet :
     def health_suggestions(self):
         #suggests health advice based on pet age
         if self.age < 2:
-            return f"Feeding suggestion for {self.name} is {square(self.age)} grams of puppy food per day - needs vaccinations and regular vet checkups"
+            return f"Feeding suggestion for {self.name} is {square(self.age)} grams of puppy/kitten food per day - needs vaccinations and regular vet checkups"
         elif self.age < 8:
             return f"Feeding suggestion for {self.name} is {square(self.age)} grams of adult food per day - regular exercise and balanced diet recommended"
         else:
@@ -75,12 +75,7 @@ class dog(Pet):
     def __str__(self):
         return super().__str__()
 
-def log_new():
-    name= input("Pet Name:")
-    zipcode= input("Zipcode:")
-    age=input("Pet age:")
-    pet=Pet(name,zipcode,age)
-    return pet
+
 
 
 class vet:
@@ -90,13 +85,15 @@ class vet:
         self.name=name
         self.owner=owner
         self.assigned_pets=[]  #no assigned pets yet
-    def __str__ (self):
+        
+    def assign(self, name):
+        if name not in self.assigned_pets:
+            self.assigned_pets.append(name)
+
+    def __str__(self):
         return f"{self.name}belongs to {self.owner} and is under the care of {self.vet_name}"
     
-def add_pet(self,name):
-    if name not in self.assigned_pets :
-        self.assigned_pets.append(name)
-
+    
    
 
 #-----------------------------------------------------------fake code generation
@@ -109,6 +106,29 @@ def fake_data():
             for _ in range(25):
                 writer.writerow([fake.first_name(), fake.first_name(), fake.zipcode(), fake.random_int(min=0, max=30)])
         print("Fake data generated and saved to pet_log.csv")
+
+
+#-----------------------------------------------------------functions
+def log_new():
+    name= input("Pet Name:")
+    zipcode= input("Zipcode:")
+    age=int(input("Pet age:"))
+    pet_type= input("Is your pet a cat or dog? (type 'cat' or 'dog'):").lower()
+    if pet_type == "cat":
+        breed= input("Cat breed:")
+        owner= input("Owner name:")
+        pet=cat(name, owner, zipcode, age, breed)
+    elif pet_type == "dog":
+        breed= input("Dog breed:")
+        owner= input("Owner name:")
+        pet=dog(name, owner, zipcode, age, breed)
+    else:
+        print("Invalid pet type")
+        return None
+    return pet
+
+
+
         
 def save_pets(Pet):
     with open("pet_log.csv", "a", newline="") as file:
@@ -149,8 +169,9 @@ def main():
 
     if n=="1":
         pet = log_new()
+        assign_vet= vet("Dr Vogel", pet.name, pet.owner) #creates vet object to assign pet to
+        vet.assign(assign_vet) #assigns pet to vet
         save_pets(pet)
-        add_pet(pet)
         cowsay.yoda(f"{pet.name} logged successfully!")
 
     elif n=="2":
