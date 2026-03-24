@@ -121,7 +121,7 @@ def save_pets(Pet):
         else:
             writer.writerow(["Pet", Pet.name, Pet.owner, Pet.zipcode, Pet.age])
 
-def load_pets():
+def load_pets(): #working well
     pets=[]
     if os.path.exists("pet_log.csv"):
         with open("pet_log.csv", "r") as file:
@@ -143,9 +143,9 @@ def main():
 
     if n=="1":
         name= input("Pet Name:")
-        owner= input("Owner:")
         zipcode= input("Zipcode:")
-        New_pet=Pet(name,owner,zipcode)
+        age=input("Pet age:")
+        New_pet=Pet(name,zipcode,age)
         save_pets(New_pet)
         add_pet(New_pet)
         cowsay.yoda(f"{name} logged successfully!")
@@ -158,6 +158,7 @@ def main():
             print(p)
 
     elif n=="3":
+        n= input("Please ")
         print("\nHealth suggestions:")
         for pet in pets:
             print(f"- {pet.health_suggestions()}")
