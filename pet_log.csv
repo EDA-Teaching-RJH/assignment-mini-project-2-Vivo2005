@@ -1,1 +1,23 @@
-name,owner,zipcode,age
+name,owner,zipcode,age,type,breed
+Nicholas,Pamela,85720,8,cat,unknown breed
+Elizabeth,Amber,21888,0,cat,unknown breed
+Penny,Cynthia,45532,10,dog,unknown breed
+Travis,James,88669,15,cat,unknown breed
+Julie,Janet,14920,10,dog,unknown breed
+Jeremiah,Douglas,53939,15,dog,unknown breed
+Sheila,Mallory,19800,3,cat,unknown breed
+Daniel,James,92295,1,cat,unknown breed
+Laura,Randy,05781,21,cat,unknown breed
+Paul,Blake,11749,8,cat,unknown breed
+Kimberly,Daniel,13643,21,dog,unknown breed
+Michael,James,14550,9,dog,unknown breed
+Lisa,Barbara,55492,18,dog,unknown breed
+Carlos,Lisa,14118,20,dog,unknown breed
+Sarah,Carolyn,08706,3,dog,unknown breed
+Madison,Jose,60307,28,cat,unknown breed
+Tamara,Tonya,13773,12,cat,unknown breed
+Michael,Melissa,71869,11,dog,unknown breed
+Sierra,John,52363,20,cat,unknown breed
+Edward,Isaiah,23140,6,dog,unknown breed
+Curtis,Laura,83012,29,cat,unknown breed
+Anne,Barbara,10004,24,dog,unknown breed
