@@ -54,7 +54,11 @@ class cat(Pet):
         self.breed=breed
         self.owner=owner
 
-    
+        if not breed:
+            raise ValueError("Missing breed")
+        if not owner:
+            raise ValueError("Missing owner")
+
     def __str__(self):
         # returns the superior information plus cat specific data
         return f"{super().__str__()} - {self.name} is a cat -{self.breed}- owned by {self.owner}"
@@ -66,6 +70,12 @@ class dog(Pet):
         super().__init__(name, zipcode ,age)
         self.breed=breed
         self.owner=owner
+
+        if not breed:
+            raise ValueError("Missing breed")
+        if not owner:
+            raise ValueError("Missing owner")
+        
     def __str__(self):
         return super().__str__()
 

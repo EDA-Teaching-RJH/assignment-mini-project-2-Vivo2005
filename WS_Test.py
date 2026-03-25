@@ -50,6 +50,12 @@ class test_cat:
         expected_str = "Whiskers lives at 54321 and is 3 years old - Whiskers is a cat - Siamese - owned by Bob"
         assert str(c) == expected_str
 
+    def test_invalid_breed(self):
+        with pytest.raises(ValueError, match="Missing breed"):
+            cat("Whiskers", "Bob", "54321", 3, "")  #breed cannot be empty
+
+    def
+
 class test_dog:
     def test_dog_creation(self):
         d = dog("Rex", "Charlie", "67890", 7, "Labrador")
