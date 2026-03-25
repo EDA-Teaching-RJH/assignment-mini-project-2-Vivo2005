@@ -93,8 +93,8 @@ def fake_data():
         with open ("Vet_log.csv", "w", newline="") as file:
             writer=csv.writer(file)
             writer.writerow(["Dr. Vogel's patients"])
-            for _ in range(5):
-                writer.writerow([fake.first_name(), "  -  ", random.choice(["cat", "dog"])])
+            for _ in range(25):
+                writer.writerow([fake.first_name(), random.choice(["  -  cat", "  -  dog"])])
         print("Fake data generated and saved to Vet_log.csv")
     else:
         pass
@@ -162,6 +162,7 @@ def main():
 
     #Initiates the main menu and prompts user to select a function
     main_menu()
+    fake_data() #generates fake data to pet and vet logs if they don't already exist
     if len(sys.argv) < 2:
         print("Please make a selection")
         sys.exit()
@@ -169,13 +170,11 @@ def main():
     n= sys.argv[1]
 
     if n=="1": #working successfully
-        fake_data() #generates fake data to pet and vet 
         pet = log_new()
         save_pets(pet)
         cowsay.tux(f"{pet.name} logged successfully!")
 
     elif n=="2":
-        fake_data() #generates fake data to print
         print("\nAll pet data:")
         pets=load_pets()
         for p in sorted(pets, key=lambda p: p.name):
@@ -189,24 +188,32 @@ def main():
             for row in reader:
                 if row[0] == n:
                     print(health_suggestions(row[0],int(row[3])))
-
-    elif n=="4":#to remove pet
-        fake_data() 
-        rows=[]
-        rows_name= input("Please input the name of the pet you wish to remove:").lower().title()
-        with open("pet_log.csv", "r") as file:
-            reader = csv.DictReader(file)
-            for row in reader:
-                if row["name"] != rows_name: 
-                    rows.append(row)
-
+    elif n=="4":#to remove pet 
+        p_rows=[]
+        rows_name= input("Please input the name of the pet you wish to remove:").lower().title() 
+        with open("pet_log.csv", "r") as file: 
+            reader = csv.DictReader(file) 
+            for row in reader: 
+                if row["name"] != rows_name:
+                     p_rows.append(row) 
         with open("pet_log.csv", "w", newline="") as file:
-            writer = csv.DictWriter(file, fieldnames=reader.fieldnames)
+             writer = csv.DictWriter(file, fieldnames=reader.fieldnames)
+             writer.writeheader() 
+             writer.writerows(p_rows) 
+             print(f"{rows_name} has been removed from the pet database.") 
+         
+        with open("Vet_log.csv", "r") as file: 
+            reader = csv.reader(file)
+            v_rows = [] 
+            for row in reader:
+                 if row[0] != rows_name:
+                     v_rows.append(row) 
+        with open("Vet_log.csv", "w", newline="") as file:
+            writer = csv.DictWriter(file, fieldnames=["Dr. Vogel's patients"]) 
+            writer.writeheader() 
+            writer.writerows(v_rows) 
+            print(f"{rows_name} has been removed from the vet database."
 
-            writer.writeheader()
-            writer.writerows(rows)
-            print(f"{rows_name} has been removed from the pet database.")
-        
 
     else:
         print("Option not recognised")
