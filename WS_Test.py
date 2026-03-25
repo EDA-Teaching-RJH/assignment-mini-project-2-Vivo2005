@@ -1,5 +1,6 @@
 from WS import( Pet, cat, dog, Vet)
 import os
+import pytest
 import csv
 from WS import (fake_data , log_new, save_pets , load_pets, health_suggestions) 
 
@@ -16,6 +17,24 @@ class test_pet:
     def test_str(self):
         p = Pet("Buddy", "Alice", "12345", 5)
         assert str(p) == "Buddy lives at 12345 and is 5 years old"
+
+    def test_invalid_name(self):
+       with pytest.raises(ValueError, match="Missing name"):
+              Pet("", "12345", 5)  #pet only requires name, zipcode and age so owner is not included in this test
+
+    def test_invalid_age(self):
+        with pytest.raises(ValueError, match="invalid age"):
+            Pet("Buddy", "12345", -1)  #age cannot be negative
+        with pytest.raises(ValueError, match="invalid age"):
+            Pet("Buddy", "12345", 31)  #age cannot be greater than 30
+    
+    def test_invalid_zipcode(self):
+        with pytest.raises(ValueError, match="Invalid zipcode format"):
+            Pet("Buddy", "1234", 5)  #zipcode must be 5 digits
+        with pytest.raises(ValueError, match="Invalid zipcode format"):
+            Pet("Buddy", "123456", 5)  
+        with pytest.raises(ValueError, match="Invalid zipcode format"):
+            Pet("Buddy", "abcde", 5)  #zipcode must be a number
 
 class test_cat:
     def test_cat_creation(self):
@@ -61,3 +80,4 @@ class test_vet:
 
 
 #-----------------------------------------------------------Other functions tests
+
