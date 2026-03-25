@@ -16,8 +16,8 @@ def main_menu():
     "1. Log new pet \n"
     "2. View all pet data\n"
     "3. See health suggestions \n"
-    "4. change personal info\n"
-    "5. change pet info")
+    "4. remove pet")
+    
 
 
 #-----------------------------------------------------------class definitions
@@ -190,8 +190,22 @@ def main():
                 if row[0] == n:
                     print(health_suggestions(row[0],int(row[3])))
 
-    elif n=="5":
-        print("hi")
+    elif n=="4":#to remove pet
+        fake_data() 
+        rows_name= input("Please input the name of the pet you wish to remove:").lower().title()
+        with open("pet_log.csv", "r") as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                if row["name"] == rows_name:
+                    row.append(row)
+
+        with open("pet_log.csv", "w", newline="") as file:
+            fieldnames = reader.fieldnames
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+
+            writer.writeheader()
+            writer.writerows(row)
+        
 
     else:
         print("Option not recognised")
