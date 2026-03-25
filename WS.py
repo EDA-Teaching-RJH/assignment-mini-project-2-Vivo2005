@@ -207,8 +207,6 @@ def main():
             writer.writerows(rows)
             print(f"{rows_name} has been removed from the pet database.")
 
-         
-
 
     else:
         print("Option not recognised")
