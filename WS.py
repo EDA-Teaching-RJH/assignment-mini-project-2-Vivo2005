@@ -188,31 +188,26 @@ def main():
             for row in reader:
                 if row[0] == n:
                     print(health_suggestions(row[0],int(row[3])))
+
+
     elif n=="4":#to remove pet 
-        p_rows=[]
-        rows_name= input("Please input the name of the pet you wish to remove:").lower().title() 
-        with open("pet_log.csv", "r") as file: 
-            reader = csv.DictReader(file) 
-            for row in reader: 
-                if row["name"] != rows_name:
-                     p_rows.append(row) 
-        with open("pet_log.csv", "w", newline="") as file:
-             writer = csv.DictWriter(file, fieldnames=reader.fieldnames)
-             writer.writeheader() 
-             writer.writerows(p_rows) 
-             print(f"{rows_name} has been removed from the pet database.") 
-         
-        with open("Vet_log.csv", "r") as file: 
-            reader = csv.reader(file)
-            v_rows = [] 
+        fake_data() 
+        rows=[]
+        rows_name= input("Please input the name of the pet you wish to remove:").lower().title()
+        with open("pet_log.csv", "r") as file:
+            reader = csv.DictReader(file)
             for row in reader:
-                 if row[0] != rows_name:
-                     v_rows.append(row) 
-        with open("Vet_log.csv", "w", newline="") as file:
-            writer = csv.DictWriter(file, fieldnames=["Dr. Vogel's patients"]) 
-            writer.writeheader() 
-            writer.writerows(v_rows) 
-            print(f"{rows_name} has been removed from the vet database."
+                if row["name"] != rows_name: 
+                    rows.append(row)
+
+        with open("pet_log.csv", "w", newline="") as file:
+            writer = csv.DictWriter(file, fieldnames=reader.fieldnames)
+
+            writer.writeheader()
+            writer.writerows(rows)
+            print(f"{rows_name} has been removed from the pet database.")
+
+         
 
 
     else:
