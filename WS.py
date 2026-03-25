@@ -5,6 +5,7 @@ import re
 import csv
 import cowsay
 from faker import Faker
+import random
 
 
 square=lambda x: x*x #lamba expression to be used later
@@ -100,7 +101,7 @@ def fake_data():
             writer=csv.writer(file)
             writer.writerow(["Dr. Vogel's patients"])
             for _ in range(5):
-                writer.writerow([fake.first_name()])
+                writer.writerow([fake.first_name(), "  -  ", random.choice(["cat", "dog"])])
         print("Fake data generated and saved to Vet_log.csv")
     else:
         pass
@@ -129,9 +130,8 @@ def log_new():
 
         
 def save_pets(Pet):
-    with open("pet_log.csv", "a", newline="") as file:
+    with open("pet_log.csv", "a", newline="") as file: #saves pet data to pet log
         writer=csv.writer(file)
-        writer.writerow(["name", "owner", "zipcode", "age"])
         if isinstance(Pet, cat):
             writer.writerow(["Cat", Pet.name, Pet.owner, Pet.zipcode, Pet.age, Pet.breed])
         elif isinstance(Pet, dog):
@@ -140,7 +140,6 @@ def save_pets(Pet):
             writer.writerow(["Pet", Pet.name, Pet.owner, Pet.zipcode, Pet.age])
     with open("Vet_log.csv", "a", newline="") as file:
         writer=csv.writer(file)
-        writer.writerow(["Dr. Vogel's patients"])
         writer.writerow([Pet.name + " - " + Pet.__class__.__name__]) #adds pet name and type to vet log
 
 def load_pets(): #working well
@@ -183,13 +182,11 @@ def main():
             print(p)
 
     elif n=="3":
-        n= input("Please ")
+        n= input("Please input the name of your pet to receive health suggestions:")
         print("\nHealth suggestions:")
-        for pet in pets:
-            print(f"- {pet.health_suggestions()}")
-
-    elif n=="4":
-        print("hi")
+        for pet in pet_log.csv:
+            if pet.name == n:
+                print(f"- {pet.health_suggestions()}")
 
     elif n=="5":
         print("hi")
