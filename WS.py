@@ -42,14 +42,7 @@ class Pet :
         self.Vet.append(vet) #adds vet to pet data
         Vet.add_pet(self) #adds pet to vet data
 
-    def health_suggestions(self):
-        #suggests health advice based on pet age
-        if self.age < 2:
-            return f"Feeding suggestion for {self.name} is {square(self.age)} grams of puppy/kitten food per day - needs vaccinations and regular vet checkups"
-        elif self.age < 8:
-            return f"Feeding suggestion for {self.name} is {square(self.age)} grams of adult food per day - regular exercise and balanced diet recommended"
-        else:
-            return f"Feeding suggestion for {self.name} is {square(self.age)} grams of senior food per day - regular vet checkups and joint supplements may be beneficial" 
+     
     
     def __str__(self):
         return f"{self.name} lives at {self.zipcode} and is {self.age} years old"
@@ -133,11 +126,11 @@ def save_pets(Pet):
     with open("pet_log.csv", "a", newline="") as file: #saves pet data to pet log
         writer=csv.writer(file)
         if isinstance(Pet, cat):
-            writer.writerow(["Cat", Pet.name, Pet.owner, Pet.zipcode, Pet.age, Pet.breed])
+            writer.writerow([ Pet.name, Pet.owner, Pet.zipcode, Pet.age,"Cat", Pet.breed])
         elif isinstance(Pet, dog):
-            writer.writerow(["Dog", Pet.name, Pet.owner, Pet.zipcode, Pet.age, Pet.breed])
+            writer.writerow([ Pet.name, Pet.owner, Pet.zipcode, Pet.age,"Dog", Pet.breed])
         else:
-            writer.writerow(["Pet", Pet.name, Pet.owner, Pet.zipcode, Pet.age])
+            writer.writerow([ Pet.name, Pet.owner, Pet.zipcode, Pet.age,"Pet", "Unknown breed"])
     with open("Vet_log.csv", "a", newline="") as file:
         writer=csv.writer(file)
         writer.writerow([Pet.name + " - " + Pet.__class__.__name__]) #adds pet name and type to vet log
@@ -152,7 +145,14 @@ def load_pets(): #working well
                 pets.append(Pet(row[0], row[2], int(row[3]))) #creates pet objects from csv data and adds to list
     return pets
 
-
+def health_suggestions(name,age):
+        #suggests health advice based on pet age
+        if age < 2:
+            return f"Feeding suggestion for {name} is {square(age)*10+100} grams of puppy/kitten food per day - needs vaccinations and regular vet checkups"
+        elif age < 8:
+            return f"Feeding suggestion for {name} is {square(age)*10+100} grams of adult food per day - regular exercise and balanced diet recommended"
+        else:
+            return f"Feeding suggestion for {name} is {square(age)+100} grams of senior food per day - regular vet checkups and joint supplements may be beneficial"
 
 
 
@@ -182,11 +182,13 @@ def main():
             print(p)
 
     elif n=="3":
-        n= input("Please input the name of your pet to receive health suggestions:")
-        print("\nHealth suggestions:")
-        for pet in pet_log.csv:
-            if pet.name == n:
-                print(f"- {pet.health_suggestions()}")
+        n= input("Please input the name of your pet to receive health suggestions:").lower().title()
+        with open ("pet_log.csv","r") as file:
+            reader= csv.reader(file)
+            next(reader)
+            for row in reader:
+                if row[0] == n:
+                    print(health_suggestions(row[0],int(row[3])))
 
     elif n=="5":
         print("hi")
