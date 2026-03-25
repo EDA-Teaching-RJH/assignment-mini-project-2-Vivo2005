@@ -192,19 +192,20 @@ def main():
 
     elif n=="4":#to remove pet
         fake_data() 
+        rows=[]
         rows_name= input("Please input the name of the pet you wish to remove:").lower().title()
         with open("pet_log.csv", "r") as file:
             reader = csv.DictReader(file)
             for row in reader:
-                if row["name"] == rows_name:
-                    row.append(row)
+                if row["name"] != rows_name: 
+                    rows.append(row)
 
         with open("pet_log.csv", "w", newline="") as file:
-            fieldnames = reader.fieldnames
-            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            writer = csv.DictWriter(file, fieldnames=reader.fieldnames)
 
             writer.writeheader()
-            writer.writerows(row)
+            writer.writerows(rows)
+            print(f"{rows_name} has been removed from the pet database.")
         
 
     else:
