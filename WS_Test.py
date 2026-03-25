@@ -36,6 +36,8 @@ class test_pet:
         with pytest.raises(ValueError, match="Invalid zipcode format"):
             Pet("Buddy", "abcde", 5)  #zipcode must be a number
 
+
+#-----------------------------------------------------------Cat tests
 class test_cat:
     def test_cat_creation(self):
         c = cat("Whiskers", "Bob", "54321", 3, "Siamese")
@@ -54,8 +56,11 @@ class test_cat:
         with pytest.raises(ValueError, match="Missing breed"):
             cat("Whiskers", "Bob", "54321", 3, "")  #breed cannot be empty
 
-    def
+    def test_invalid_owner(self):
+        with pytest.raises(ValueError, match="Missing owner"):
+            cat("Whiskers", "", "54321", 3, "Siamese")  #owner cannot be empty
 
+#-----------------------------------------------------------Dog tests
 class test_dog:
     def test_dog_creation(self):
         d = dog("Rex", "Charlie", "67890", 7, "Labrador")
@@ -69,6 +74,14 @@ class test_dog:
         d = dog("Rex", "Charlie", "67890", 7, "Labrador")
         expected_str = "Rex lives at 67890 and is 7 years old"
         assert str(d) == expected_str
+
+    def test_invalid_breed(self):
+            with pytest.raises(ValueError, match="Missing breed"):
+                dog("Rex", "Charlie", "67890", 7, "")  #breed cannot be empty
+
+    def test_invalid_owner(self):
+        with pytest.raises(ValueError, match="Missing owner"):
+            dog("Rex", "", "67890", 7, "Labrador")  #owner cannot be empty
 
 
 #-----------------------------------------------------------Vet tests
@@ -85,5 +98,21 @@ class test_vet:
         assert p in v.pets
 
 
-#-----------------------------------------------------------Other functions tests
+#-----------------------------------------------------------test I/O functions
+class test_io:
+    def test_save_pets(self):
+        pets = [cat("Whiskers", "Bob", "54321", 3, "Siamese"), dog("Rex", "Charlie", "67890", 7, "Labrador")]
+        save_pets(pets)
+        assert os.path.exists("pet_log.csv")
+        assert os.path.exists("Vet_log.csv")
 
+    def test_load_pets(self):
+        fake_data()  #generate fake data for testing
+        pets = load_pets()
+        assert len(pets) > 0  #are there pets loaded?
+
+    def test_health_suggestions(self):
+        c = cat("Whiskers", "Bob", "54321", 3, "Siamese")
+        d = dog("Rex", "Charlie", "67890", 7, "Labrador")
+        assert health_suggestions(c.name, c.age) == ("Feeding suggestion for Whiskers is 190 grams of adult food per day - regular exercise and balanced diet recommended")
+        assert health_suggestions(d.name, d.age) == ("Feeding suggestion for Rex is 490 grams of adult food per day - regular exercise and balanced diet recommended")

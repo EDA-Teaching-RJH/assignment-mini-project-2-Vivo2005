@@ -80,13 +80,13 @@ class dog(Pet):
         return super().__str__()
 
 class Vet:
-    def __init__(self, name):
+    def __init__(self,name):
         self.name=name
         self.pets=[] #list of pets assigned to vet
 
     def add_pet(self, pet):
         self.pets.append(pet) #adds pet to vet data
-        print (self.pets)
+        
 
 
 #-----------------------------------------------------------fake code generation
@@ -112,17 +112,17 @@ def fake_data():
 
 #-----------------------------------------------------------functions
 def log_new():
-    name= input("Pet Name:")
+    name= input("Pet Name:").strip().title() 
     zipcode= input("Zipcode:")
     age=int(input("Pet age:"))
     pet_type= input("Is your pet a cat or dog? (type 'cat' or 'dog'):").lower()
     if pet_type == "cat":
-        breed= input("Cat breed:")
-        owner= input("Owner name:")
+        breed= input("Cat breed:").strip().title()
+        owner= input("Owner name:").strip().title()
         pet=cat(name, owner, zipcode, age, breed)
     elif pet_type == "dog":
-        breed= input("Dog breed:")
-        owner= input("Owner name:")
+        breed= input("Dog breed:").strip().title()
+        owner= input("Owner name:").strip().title()
         pet=dog(name, owner, zipcode, age, breed)
     else:
         print("Invalid pet type")
