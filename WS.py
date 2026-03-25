@@ -75,19 +75,32 @@ class dog(Pet):
     def __str__(self):
         return super().__str__()
 
+class Vet:
+    def __init__(self, name):
+        self.name=name
+        self.pets=[] #list of pets assigned to vet
+
+    def add_pet(self, pet):
+        self.pets.append(pet) #adds pet to vet data
 
 
 #-----------------------------------------------------------fake code generation
 def fake_data():
-
-  fake=Faker()
-    if not os.path.exists("pet_log.csv"):
+    fake=Faker()
+    if not os.path.exists("pet_log.csv"): #fake data for pet log
         with open ("pet_log.csv", "w", newline="") as file:
             writer=csv.writer(file)
             writer.writerow(["name", "owner", "zipcode", "age"])
             for _ in range(25):
                 writer.writerow([fake.first_name(), fake.first_name(), fake.zipcode(), fake.random_int(min=0, max=30)])
         print("Fake data generated and saved to pet_log.csv")
+    if not os.path.exists("Vet_log.csv"): #fake data for vet log
+        with open ("Vet_log.csv", "w", newline="") as file:
+            writer=csv.writer(file)
+            writer.writerow(["Dr. Vogel's patients"])
+            for _ in range(5):
+                writer.writerow([fake.first_name()])
+        print("Fake data generated and saved to Vet_log.csv")
 
 
 #-----------------------------------------------------------functions
@@ -152,6 +165,8 @@ def main():
     if n=="1": #working successfully
         pet = log_new()
         save_pets(pet)
+        vet=Vet("Dr. Vogel") #creates a vet object to assign pet to
+        vet.add_pet(pet)
         cowsay.tux(f"{pet.name} logged successfully!")
 
     elif n=="2":
