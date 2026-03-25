@@ -1,4 +1,4 @@
-
+# imports to be used in the program
 import os
 import sys
 import re 
@@ -8,7 +8,7 @@ from faker import Faker
 import random
 
 
-square=lambda x: x*x #lamba expression to be used later
+square=lambda x: x*x #lamba expression to be used later in health suggestions function
 
 #-----------------------------------------------------------main menu to print when programme begins
 def main_menu():
@@ -17,11 +17,11 @@ def main_menu():
     "2. View all pet data\n"
     "3. See health suggestions \n"
     "4. remove pet")
-    
+   # uses arguments to navigate menu options 
 
 
 #-----------------------------------------------------------class definitions
-class Pet :
+class Pet : #super class 
     def __init__(self, name, zipcode ,age):
        
         self.name=name
@@ -50,10 +50,10 @@ class Pet :
 #sub class cat
 class cat(Pet):
     def __init__(self, name, owner, zipcode ,age , breed):
-        super().__init__(name, zipcode, age)
+        super().__init__(name, zipcode, age) # info taken from pet class
         self.breed=breed
         self.owner=owner
-
+#check inputs are accurate before inputting them
         if not breed:
             raise ValueError("Missing breed")
         if not owner:
@@ -67,19 +67,19 @@ class cat(Pet):
 #sub class dog 
 class dog(Pet):
     def __init__(self, name, owner, zipcode ,age ,breed):
-        super().__init__(name, zipcode ,age)
+        super().__init__(name, zipcode ,age) #info taken from pet class
         self.breed=breed
         self.owner=owner
-
+    #check inputs are accurate 
         if not breed:
             raise ValueError("Missing breed")
         if not owner:
             raise ValueError("Missing owner")
         
     def __str__(self):
-        return super().__str__()
+        return f"{super().__str__()} - {self.name} is a dog -{self.breed}- owned by {self.owner}"
 
-class Vet:
+class Vet: 
     def __init__(self,name):
         self.name=name
         self.pets=[] #list of pets assigned to vet
@@ -90,19 +90,19 @@ class Vet:
 
 
 #-----------------------------------------------------------fake code generation
-def fake_data():
-    fake=Faker()
+def fake_data(): #generates fake data for pet and vet logs if they don't already exist
+    fake=Faker()# uses external library
     if not os.path.exists("pet_log.csv"): #fake data for pet log
         with open ("pet_log.csv", "w", newline="") as file:
             writer=csv.writer(file)
-            writer.writerow(["name", "owner", "zipcode", "age", "type", "breed"])
+            writer.writerow(["name", "owner", "zipcode", "age", "type", "breed"]) # headings for pet log
             for _ in range(25):
                 writer.writerow([fake.first_name(), fake.first_name(), fake.zipcode(), fake.random_int(min=0, max=30), random.choice(["cat", "dog"]), "unknown breed"])
         print("Fake data generated and saved to pet_log.csv")
     if not os.path.exists("Vet_log.csv"): #fake data for vet log
         with open ("Vet_log.csv", "w", newline="") as file:
             writer=csv.writer(file)
-            writer.writerow(["Dr. Vogel's patients"])
+            writer.writerow(["Dr. Vogel's patients"])#heading for vet log
             for _ in range(25):
                 writer.writerow([fake.first_name(), random.choice(["  -  cat", "  -  dog"])])
         print("Fake data generated and saved to Vet_log.csv")
@@ -111,11 +111,12 @@ def fake_data():
 
 
 #-----------------------------------------------------------functions
-def log_new():
+def log_new(): #logs new pet data by prompting user for input
     name= input("Pet Name:").strip().title() 
     zipcode= input("Zipcode:")
     age=int(input("Pet age:"))
     pet_type= input("Is your pet a cat or dog? (type 'cat' or 'dog'):").lower()
+     #classifies pet as cat or dog and prompts for breed and owner name
     if pet_type == "cat":
         breed= input("Cat breed:").strip().title()
         owner= input("Owner name:").strip().title()
@@ -132,20 +133,28 @@ def log_new():
 
 
         
-def save_pets(Pet):
+def save_pets(Pet): #saves pet data to pet log and vet log, always prepopulated with fake data
+
     with open("pet_log.csv", "a", newline="") as file: #saves pet data to pet log
         writer=csv.writer(file)
+
+        #saves pet as its individual species and breed if possible, otherwise saves as pet with unknown breed
         if isinstance(Pet, cat):
             writer.writerow([ Pet.name, Pet.owner, Pet.zipcode, Pet.age,"Cat", Pet.breed])
         elif isinstance(Pet, dog):
             writer.writerow([ Pet.name, Pet.owner, Pet.zipcode, Pet.age,"Dog", Pet.breed])
         else:
             writer.writerow([ Pet.name, Pet.owner, Pet.zipcode, Pet.age,"Pet", "Unknown breed"])
+
+#saves pet name and type to vet log for easy reference for vet when pet is assigned to them
     with open("Vet_log.csv", "a", newline="") as file:
         writer=csv.writer(file)
         writer.writerow([Pet.name + " - " + Pet.__class__.__name__]) #adds pet name and type to vet log
 
-def load_pets(): #working well
+
+
+def load_pets(): 
+    #retrieves a list of all pet data stored in csv's
     pets=[]
     if os.path.exists("pet_log.csv"):
         with open("pet_log.csv", "r") as file:
@@ -153,7 +162,7 @@ def load_pets(): #working well
             next(reader) #skip names
             for row in reader:
                 pets.append(Pet(row[0], row[2], int(row[3]))) #creates pet objects from csv data and adds to list
-    return pets
+    return pets # specifically returns name, zip code and age as relevent data
 
 def health_suggestions(name,age):
         #suggests health advice based on pet age
@@ -194,27 +203,27 @@ def main():
         n= input("Please input the name of your pet to receive health suggestions:").lower().title()
         with open ("pet_log.csv","r") as file:
             reader= csv.reader(file)
-            next(reader)
+            next(reader) # skippes headings
             for row in reader:
-                if row[0] == n:
+                if row[0] == n: # matches stored pet data to name given
                     print(health_suggestions(row[0],int(row[3])))
 
 
     elif n=="4":#to remove pet 
-        fake_data() 
+        fake_data() #ensure there is data there to remove
         rows=[]
         rows_name= input("Please input the name of the pet you wish to remove:").lower().title()
         with open("pet_log.csv", "r") as file:
             reader = csv.DictReader(file)
             for row in reader:
-                if row["name"] != rows_name: 
+                if row["name"] != rows_name: #all rows except the one to be removed are added to a list
                     rows.append(row)
 
         with open("pet_log.csv", "w", newline="") as file:
             writer = csv.DictWriter(file, fieldnames=reader.fieldnames)
 
             writer.writeheader()
-            writer.writerows(rows)
+            writer.writerows(rows) #list is printed in new folder and replaces old csv
             print(f"{rows_name} has been removed from the pet database.")
 
 
