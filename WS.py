@@ -38,8 +38,8 @@ class Pet :
         
     def assign(self, vet):
         #assigns pet to a vet
-        self.vet.append(vet) #adds vet to pet data
-        vet.add_pet(self) #adds pet to vet data
+        self.Vet.append(vet) #adds vet to pet data
+        Vet.add_pet(self) #adds pet to vet data
 
     def health_suggestions(self):
         #suggests health advice based on pet age
@@ -82,6 +82,7 @@ class Vet:
 
     def add_pet(self, pet):
         self.pets.append(pet) #adds pet to vet data
+        print (self.pets)
 
 
 #-----------------------------------------------------------fake code generation
@@ -101,6 +102,8 @@ def fake_data():
             for _ in range(5):
                 writer.writerow([fake.first_name()])
         print("Fake data generated and saved to Vet_log.csv")
+    else:
+        pass
 
 
 #-----------------------------------------------------------functions
@@ -135,6 +138,10 @@ def save_pets(Pet):
             writer.writerow(["Dog", Pet.name, Pet.owner, Pet.zipcode, Pet.age, Pet.breed])
         else:
             writer.writerow(["Pet", Pet.name, Pet.owner, Pet.zipcode, Pet.age])
+    with open("Vet_log.csv", "a", newline="") as file:
+        writer=csv.writer(file)
+        writer.writerow(["Dr. Vogel's patients"])
+        writer.writerow([Pet.name + " - " + Pet.__class__.__name__]) #adds pet name and type to vet log
 
 def load_pets(): #working well
     pets=[]
@@ -163,10 +170,9 @@ def main():
     n= sys.argv[1]
 
     if n=="1": #working successfully
+        fake_data() #generates fake data to pet and vet 
         pet = log_new()
         save_pets(pet)
-        vet=Vet("Dr. Vogel") #creates a vet object to assign pet to
-        vet.add_pet(pet)
         cowsay.tux(f"{pet.name} logged successfully!")
 
     elif n=="2":
