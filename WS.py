@@ -87,7 +87,7 @@ def fake_data():
             writer=csv.writer(file)
             writer.writerow(["name", "owner", "zipcode", "age"])
             for _ in range(25):
-                writer.writerow([fake.first_name(), fake.first_name(), fake.zipcode(), fake.random_int(min=0, max=30)])
+                writer.writerow([fake.first_name(), fake.first_name(), fake.zipcode(), fake.random_int(min=0, max=30), random.choice(["cat", "dog"])])
         print("Fake data generated and saved to pet_log.csv")
     if not os.path.exists("Vet_log.csv"): #fake data for vet log
         with open ("Vet_log.csv", "w", newline="") as file:
