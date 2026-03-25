@@ -42,3 +42,15 @@ class test_dog:
         d = dog("Rex", "Charlie", "67890", 7, "Labrador")
         expected_str = "Rex lives at 67890 and is 7 years old"
         assert str(d) == expected_str
+
+class test_vet:
+    def test_vet_creation(self):
+        v = Vet("Dr. Smith")
+        assert v.name == "Dr. Smith"
+        assert v.pets == []
+
+    def test_add_pet(self):
+        v = Vet("Dr. Smith")
+        p = Pet("Buddy", "Alice", "12345", 5)
+        v.add_pet(p)
+        assert p in v.pets
