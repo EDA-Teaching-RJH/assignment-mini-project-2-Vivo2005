@@ -1,8 +1,10 @@
 from WS import( Pet, cat, dog, Vet)
 import os
 import csv
-from WS import (fake_data , log_new, save_pets , load_pets, health_suggestions)
+from WS import (fake_data , log_new, save_pets , load_pets, health_suggestions) 
 
+
+#-----------------------------------------------------------Pet tests
 class test_pet:
     def test_pet_creation(self):
         p = Pet("Buddy", "Alice", "12345", 5)
@@ -43,6 +45,8 @@ class test_dog:
         expected_str = "Rex lives at 67890 and is 7 years old"
         assert str(d) == expected_str
 
+
+#-----------------------------------------------------------Vet tests
 class test_vet:
     def test_vet_creation(self):
         v = Vet("Dr. Smith")
@@ -54,3 +58,6 @@ class test_vet:
         p = Pet("Buddy", "Alice", "12345", 5)
         v.add_pet(p)
         assert p in v.pets
+
+
+#-----------------------------------------------------------Other functions tests
